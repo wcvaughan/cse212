@@ -43,7 +43,7 @@ public static class Arrays
         //Handle cases where amount > data.Count
         amount %= data.Count;
 
-        //Split list at the correct point
+        //Split list at the correct point using GetRange
         List<int> dataOne = data.GetRange(data.Count - amount, amount);
         List<int> dataTwo = data.GetRange(0, data.Count - amount);
 
