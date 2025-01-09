@@ -1,3 +1,5 @@
+using System.Reflection.Metadata;
+
 public static class Arrays
 {
     /// <summary>
@@ -12,8 +14,16 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+        //Initialize array with size 'length'
+        double[] myArray = new double[length];
 
-        return []; // replace this return statement with your own
+        //This will use a for loop
+        for (int i = 1; i < length; i++)
+        {
+            myArray[i] = i * number;    
+        }
+
+        return myArray; // replace this return statement with your own
     }
 
     /// <summary>
@@ -29,5 +39,18 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+        //Handle cases where amount > data.Count
+        amount %= data.Count;
+
+        //Split list at the correct point
+        List<int> dataOne = data.GetRange(data.Count - amount, amount);
+        List<int> dataTwo = data.GetRange(0, data.Count - amount);
+
+        //Combine the two lists split from the original
+        data.Clear();
+        data.AddRange(dataOne);
+        data.AddRange(dataTwo);
+
+        return;
     }
 }
