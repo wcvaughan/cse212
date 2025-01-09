@@ -17,12 +17,10 @@ public static class Arrays
         //Initialize array with size 'length'
         double[] myArray = new double[length];
 
-        //This makes the first item in the array the number
- 
-        //This will use a for loop that starts at index 2 and goes the length of the array
+        //This will use a for loop that starts at index 1 and goes the length of the array
         for (int i = 1; i <= length; i++)
         {
-            //Set the value at index starting at index 1 as a multiple of i
+            //Set the value at index starting at index 0 as a multiple of i
             myArray[i - 1] = i * number;
         }
 
