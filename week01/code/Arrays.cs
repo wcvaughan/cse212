@@ -17,10 +17,11 @@ public static class Arrays
         //Initialize array with size 'length'
         double[] myArray = new double[length];
 
+        myArray[0] = number;
         //This will use a for loop
-        for (int i = 1; i < length; i++)
+        for (int i = 2; i <= length; i++)
         {
-            myArray[i] = i * number;    
+            myArray[i - 1] = i * number;
         }
 
         return myArray; // replace this return statement with your own
