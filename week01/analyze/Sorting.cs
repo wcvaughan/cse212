@@ -6,7 +6,7 @@
     }
 
 
-    //O(1)
+    //O()
     private static void SortArray(int[] data) {
         for (var sortPos = data.Length - 1; sortPos >= 0; sortPos--) {
             for (var swapPos = 0; swapPos < sortPos; ++swapPos) {
