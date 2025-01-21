@@ -23,8 +23,8 @@
         }
 
         // Find the index of the item with the highest priority to remove
-        var highPriorityIndex = 0;
-        for (int index = 0; index < _queue.Count; index++)
+        var highPriorityIndex = _queue.Count - 1; //Start with the last item to find most recently added
+        for (int index = _queue.Count - 2; index >= 0; index--)
         {
             if (_queue[index].Priority > _queue[highPriorityIndex].Priority)
                 highPriorityIndex = index;
