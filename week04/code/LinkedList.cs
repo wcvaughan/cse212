@@ -32,7 +32,21 @@ public class LinkedList : IEnumerable<int>
     /// </summary>
     public void InsertTail(int value)
     {
+        Node newNode = new(value);
         // TODO Problem 1
+        // If the list is empty, then point both head and tail to the new node.
+        if (_head is null)
+        {
+            _head = newNode;
+            _tail = newNode;
+        }
+        // If the list is not empty, then only tail will be affected.
+        else
+        {
+            newNode.Prev = _tail;
+            _tail.Next = newNode;
+            _tail = newNode;
+        }
     }
 
 
@@ -65,6 +79,17 @@ public class LinkedList : IEnumerable<int>
     public void RemoveTail()
     {
         // TODO Problem 2
+        if (_head == _tail)
+        {
+            _head = null;
+            _tail = null;
+        }
+
+        else if (_head is not null)
+        {
+            _tail.Prev!.Next = null;
+            _tail = _tail.Prev;
+        }
     }
 
     /// <summary>
@@ -109,6 +134,32 @@ public class LinkedList : IEnumerable<int>
     public void Remove(int value)
     {
         // TODO Problem 3
+        Node? curr = _head;
+        while (curr is not null)
+        {
+            if (curr.Data == value)
+            {
+                if (curr == _head)
+                {
+                    RemoveHead();
+                }
+
+                else if (curr == _tail)
+                {
+                    RemoveTail();
+                }
+                else
+                {
+                    curr.Prev!.Next = curr.Next;
+                    curr.Next!.Prev = curr.Prev;
+                }
+
+                return;
+            }
+
+            curr = curr.Next;
+        }
+
     }
 
     /// <summary>
@@ -117,6 +168,32 @@ public class LinkedList : IEnumerable<int>
     public void Replace(int oldValue, int newValue)
     {
         // TODO Problem 4
+        Node? curr =_head;
+        while (curr is not null)
+        {
+            if (curr.Data == oldValue)
+            {
+                if (curr == _head)
+                {
+                    InsertHead(newValue);
+                    Remove(oldValue);
+                    curr = _head;
+                }
+                else if (curr == _tail)
+                {
+                    InsertTail(newValue);
+                    Remove(oldValue);
+                    break;
+                }
+                else
+                {
+                    InsertAfter(oldValue, newValue);
+                    Remove(oldValue);
+                }
+            }
+            curr = curr.Next;
+        }
+
     }
 
     /// <summary>
