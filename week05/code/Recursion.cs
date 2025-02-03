@@ -15,7 +15,14 @@ public static class Recursion
     public static int SumSquaresRecursive(int n)
     {
         // TODO Start Problem 1
-        return 0;
+        if (n == 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return SumSquaresRecursive(n - 1) + n * n;
+        }
     }
 
     /// <summary>
@@ -37,9 +44,53 @@ public static class Recursion
     /// You can assume that the size specified is always valid (between 1 
     /// and the length of the letters list).
     /// </summary>
+    /// 
+
+    // public void Permutations(string letters, string word = "")
+    // {
+    //     // Try adding each of the available letters
+    //     // to the 'word' and add up all the
+    //     // resulting permutations.
+    //     if (letters.Length == 0)
+    //     {
+    //         Console.WriteLine(word);
+    //     }
+    //     else
+    //     {
+    //         for (var i = 0; i < letters.Length; i++)
+    //         {
+    //             // Make a copy of the letters to pass to the
+    //             // the next call to permutations.  We need
+    //             // to remove the letter we just added before
+    //             // we call permutations again.
+    //             var lettersLeft = letters.Remove(i, 1);
+
+    //             // Add the new letter to the word we have so far
+    //             Permutations(lettersLeft, word + letters[i]);
+    //         }
+    //     }
+    // }
     public static void PermutationsChoose(List<string> results, string letters, int size, string word = "")
     {
         // TODO Start Problem 2
+        if (word.Length == size)
+        {
+            //If the word fits the size requested, add to the list
+            results.Add(word);
+            return;
+        }
+        else
+        {
+            for (var i = 0; i < letters.Length; i++)
+            {
+                //make a copy of the letters to pass to the next call
+                //Need to remove the letter we just added
+                var lettersLeft = letters.Remove(i, 1);
+
+                //Add the new letter to the word we have so far
+                PermutationsChoose(results, lettersLeft, size, word + letters[i]);
+            }
+        }
     }
 
     /// <summary>
@@ -86,6 +137,11 @@ public static class Recursion
     /// </summary>
     public static decimal CountWaysToClimb(int s, Dictionary<int, decimal>? remember = null)
     {
+        // If this is the first time calling the function, then
+        // we need to create the dictionary.
+        if (remember == null)
+            remember = new Dictionary<int, decimal>();
+
         // Base Cases
         if (s == 0)
             return 0;
@@ -97,9 +153,16 @@ public static class Recursion
             return 4;
 
         // TODO Start Problem 3
+        // Check if we have solved this one before
+        if (remember.ContainsKey(s))
+            return remember[s];
 
         // Solve using recursion
-        decimal ways = CountWaysToClimb(s - 1) + CountWaysToClimb(s - 2) + CountWaysToClimb(s - 3);
+        decimal ways = CountWaysToClimb(s - 1, remember) +
+                        CountWaysToClimb(s - 2, remember) +
+                        CountWaysToClimb(s - 3, remember);
+        // Remember result for potential later use
+        remember[s] = ways;
         return ways;
     }
 
@@ -119,6 +182,17 @@ public static class Recursion
     public static void WildcardBinary(string pattern, List<string> results)
     {
         // TODO Start Problem 4
+        int index = pattern.IndexOf('*');
+
+        if (index == -1)
+        {
+            results.Add(pattern);
+            return;
+        }
+        // Replace * with 0
+        WildcardBinary(pattern[..index] + "0" + pattern[(index + 1)..], results);
+        // Replace * with 1
+        WildcardBinary(pattern[..index] + "1" + pattern[(index + 1)..], results);
     }
 
     /// <summary>
@@ -129,10 +203,11 @@ public static class Recursion
     {
         // If this is the first time running the function, then we need
         // to initialize the currPath list.
-        if (currPath == null) {
+        if (currPath == null)
+        {
             currPath = new List<ValueTuple<int, int>>();
         }
-        
+
         // currPath.Add((1,2)); // Use this syntax to add to the current path
 
         // TODO Start Problem 5
